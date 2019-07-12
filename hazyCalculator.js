@@ -26,7 +26,7 @@ function performCalculationStep(firstOperand, operator, secondOperand) {
     case '/':
       return firstOperand / secondOperand
     default:
-      throw new Error('Invalid input!')
+      throw new Error('Error 01!') // KMC: Differentiated the error that gets thrown
   }
 }
 
@@ -36,7 +36,7 @@ export function calculate(calculationSteps) {
 
   calculationSteps.forEach(nextCalculationStep => {
     if (!isAcceptableValue(nextCalculationStep)) {
-      throw new Error('Invalid input!')
+      throw new Error('Error 02!') // KMC: Differentiated the error that gets thrown
     }
 
     if (isNothingValue(total) && isNumericValue(nextCalculationStep)) {
@@ -50,7 +50,7 @@ export function calculate(calculationSteps) {
       operator = null
 
     } else if (!isSkippedValue(nextCalculationStep)) {
-      throw new Error('Invalid input!')
+      throw new Error('Error 03!') // KMC: Differentiated the error that gets thrown
     }
   })
 
