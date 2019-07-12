@@ -1,18 +1,18 @@
 function isSkippedValue(value) {
-  return !value
+  return !value && value !== null
 }
 
 function isNumericValue(value) {
-  return !isNaN(value)
+  return !isNaN(value) && value !== ''
 }
 
 function isNothingValue(value) {
-  return value === null
+  return !value
 }
 
 function isAcceptableValue(value) {
   const operators = ['+', '-', '*', '/']
-  return typeof value === 'Number' || operators.includes(value)
+  return isNumericValue(value) || operators.includes(value) || isSkippedValue(value)
 }
 
 function performCalculationStep(firstOperand, operator, secondOperand) {
@@ -26,7 +26,7 @@ function performCalculationStep(firstOperand, operator, secondOperand) {
     case '/':
       return firstOperand / secondOperand
     default:
-      throw new Error('Error 01!') // KMC: Differentiated the error that gets thrown
+      throw new Error('Invalid input!')
   }
 }
 
@@ -36,7 +36,7 @@ export function calculate(calculationSteps) {
 
   calculationSteps.forEach(nextCalculationStep => {
     if (!isAcceptableValue(nextCalculationStep)) {
-      throw new Error('Error 02!') // KMC: Differentiated the error that gets thrown
+      throw new Error('Invalid input!')
     }
 
     if (isNothingValue(total) && isNumericValue(nextCalculationStep)) {
@@ -50,7 +50,7 @@ export function calculate(calculationSteps) {
       operator = null
 
     } else if (!isSkippedValue(nextCalculationStep)) {
-      throw new Error('Error 03!') // KMC: Differentiated the error that gets thrown
+      throw new Error('Invalid input!')
     }
   })
 
